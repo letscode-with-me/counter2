@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // export const  function UI(){
 //         return(
@@ -30,9 +30,17 @@ export default function UI() {
     const score_temp = prompt("");
     if (!score_temp) return null;
     newscore(Number(score_temp))
-
-    localStorage.setItem("valuescore", score_temp);
   }
+
+
+  useEffect(() => {
+    const temp_score = localStorage.getItem("valuescore");
+    newscore(Number(temp_score) || 0)
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("valuescore", String(score));
+  }, [score])
   return (
     <div className="flex justify-center items-center h-screen  ">
       <div className="w-[20rem] h-[30rem] bg-red-300 flex flex-col 
